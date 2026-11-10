@@ -155,7 +155,7 @@ async function hordeGenerate(job, onStatus) {
     sampler_name: 'k_euler_a',
     karras: true,
     n: 1,
-    seed: job.seed,
+    seed: String(job.seed),
   };
   if (job.ref) {
     params.denoising_strength = job.denoise;
@@ -164,7 +164,7 @@ async function hordeGenerate(job, onStatus) {
     prompt: job.finalPrompt,
     params,
     nsfw: false,
-    censor_nsfw: 'stable',
+    censor_nsfw: true,
     shared: false,
     r2: true,
     models: [m.hordeModel],
@@ -185,7 +185,11 @@ async function hordeGenerate(job, onStatus) {
   }, 30000);
   const sub = await submit.json().catch(() => ({}));
   if (!submit.ok || !sub.id) {
-    const msg = sub.message || `Horde rejected the request (HTTP ${submit.status})`;
+    let msg = sub.message || `Horde rejected the request (HTTP ${submit.status})`;
+    if (sub.errors) {
+      const detail = Object.entries(sub.errors).map(([k, v]) => `${k}: ${v}`).join('; ');
+      msg = `${msg} — ${detail}`;
+    }
     throw new Error(msg);
   }
 
@@ -225,7 +229,9 @@ let pollChain = Promise.resolve();
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 function pollinationsGenerate(job) {
-  // one concurrent request per IP on the free tier — chain them
+  // one concurrent request per IP on the free tier — chain them.
+  // NOTE: loaded via an <img> element because browser fetch() is
+  // Turnstile-gated by Pollinations; image loads are not.
   const run = async () => {
     const [w, h] = job.dims;
     const qs = new URLSearchParams({
@@ -236,16 +242,22 @@ function pollinationsGenerate(job) {
       referrer: 'prism.studio',
     });
     const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(job.finalPrompt)}?${qs}`;
-    const res = await fetchWithTimeout(url, {}, 150000);
-    if (!res.ok) {
-      if (res.status === 429 || res.status === 402) {
-        throw new Error('Pollinations is rate-limiting anonymous requests right now — wait a moment or switch to an AI Horde model.');
-      }
-      throw new Error(`Pollinations error (HTTP ${res.status})`);
-    }
-    const blob = await res.blob();
-    if (!blob.type.startsWith('image/')) throw new Error('Pollinations returned an unexpected response');
-    return URL.createObjectURL(blob);
+    await new Promise((resolve, reject) => {
+      const img = new Image();
+      const kill = () => { img.src = ''; };
+      const to = setTimeout(() => { kill(); reject(new Error('Pollinations timed out — try again or switch to an AI Horde model')); }, 150000);
+      img.onload = () => {
+        clearTimeout(to);
+        if (img.naturalWidth > 0) resolve();
+        else reject(new Error('Pollinations returned an empty image — try again'));
+      };
+      img.onerror = () => {
+        clearTimeout(to);
+        reject(new Error('Pollinations refused the request — it may be rate-limiting anonymous users. Wait a moment or switch to an AI Horde model.'));
+      };
+      img.src = url;
+    });
+    return url; // remote URL used directly as <img src>
   };
   const p = pollChain.then(run, run); // run even if previous failed
   pollChain = p.catch(() => {});
@@ -697,18 +709,25 @@ function applyRatioToCards() { /* future: live aspect preview on placeholder */ 
 
 async function download(job, card) {
   if (!card.url) return;
-  try {
-    const res = await fetch(card.url);
-    const blob = await res.blob();
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `prism-${job.model.id}-${job.seed}.${blob.type.includes('png') ? 'png' : 'jpg'}`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-  } catch {
-    toast('Download blocked by the browser — right-click the image and save it instead', 'err');
+  if (card.url.startsWith('blob:')) {
+    try {
+      const res = await fetch(card.url);
+      const blob = await res.blob();
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `prism-${job.model.id}-${job.seed}.${blob.type.includes('png') ? 'png' : 'jpg'}`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    } catch {
+      toast('Download blocked by the browser — right-click the image and save it instead', 'err');
+    }
+  } else {
+    // remote (Pollinations) URL — browser fetch is Turnstile-gated there,
+    // so hand the direct URL to the user in a new tab
+    window.open(card.url, '_blank', 'noopener');
+    toast('Opened in a new tab — right-click the image to save it', 'info');
   }
 }
 
