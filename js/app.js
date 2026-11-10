@@ -548,6 +548,10 @@ promptEl.addEventListener('input', () => {
   promptEl.style.height = Math.min(promptEl.scrollHeight, 200) + 'px';
   updateSendState();
 });
+window.addEventListener('resize', () => {
+  promptEl.style.height = 'auto';
+  promptEl.style.height = Math.min(promptEl.scrollHeight, 200) + 'px';
+});
 promptEl.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' && !e.shiftKey) {
     e.preventDefault();
