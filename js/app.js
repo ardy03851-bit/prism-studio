@@ -26,19 +26,23 @@ const IC = {
   icbinp: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3M6 6l2.1 2.1M15.9 15.9 18 18M18 6l-2.1 2.1M8.1 15.9 6 18"/><circle cx="12" cy="12" r="3.2"/></svg>`,
   dreamshaper: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M19 14.5A7.5 7.5 0 1 1 9.5 5a6 6 0 0 0 9.5 9.5z"/><path d="M17.5 4.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8.8-2z" fill="currentColor" stroke="none" opacity="0.85"/></svg>`,
   animagine: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3.5l2 5.4 5.4 2-5.4 2-2 5.4-2-5.4-5.4-2 5.4-2 2-5.4z"/><path d="M18.8 15.2l.6 1.6 1.6.6-1.6.6-.6 1.6-.6-1.6-1.6-.6 1.6-.6.6-1.6z" fill="currentColor" stroke="none" opacity="0.8"/></svg>`,
+  deliberate: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22"/></svg>`,
+  novaanime: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 2.5l1.8 6.2 6.2 1.8-6.2 1.8-1.8 6.2-1.8-6.2-6.2-1.8 6.2-1.8L12 2.5z"/><path d="M18.5 16.5l.5 1.5 1.5.5-1.5.5-.5 1.5-.5-1.5-1.5-.5 1.5-.5.5-1.5z" fill="currentColor" stroke="none" opacity="0.8"/></svg>`,
+  realisticvision: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  sdxl: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 15l4-4 3.5 3.5L15 11l5 5"/><circle cx="9" cy="8.5" r="1.3"/></svg>`,
 };
 
 const MODELS = [
   {
     id: 'sana', name: 'Sana', sub: 'Pollinations · instant text-to-image',
-    provider: 'pollinations', icon: IC.pollinations, iconTint: '#c4b5fd',
+    provider: 'pollinations', icon: IC.pollinations, iconTint: '#d8cfc0',
     img2img: false, badges: [{ k: 'fast', t: 'fast' }, { k: 'mark', t: 'watermark' }],
     desc: 'Quick drafts, no queue.',
   },
   {
     id: 'flux', name: 'FLUX.1 Schnell', sub: 'Black Forest Labs · flagship',
     provider: 'horde', hordeModel: 'Flux.1-Schnell fp8 (Compact)',
-    icon: IC.flux, iconTint: '#7dd3fc',
+    icon: IC.flux, iconTint: '#d9c9a8',
     img2img: true, steps: { min: 2, max: 8, def: 4 }, cfg: 1.5,
     badges: [{ k: 'i2i', t: 'reference' }],
     desc: 'Best prompt adherence.',
@@ -46,37 +50,61 @@ const MODELS = [
   {
     id: 'albedobase', name: 'AlbedoBase XL 3.1', sub: 'SDXL · all-rounder',
     provider: 'horde', hordeModel: 'AlbedoBase XL 3.1',
-    icon: IC.albedobase, iconTint: '#a5b4fc',
+    icon: IC.albedobase, iconTint: '#b0a89b',
     img2img: true, badges: [{ k: 'i2i', t: 'reference' }],
   },
   {
     id: 'juggernaut', name: 'Juggernaut XL', sub: 'SDXL · photoreal',
     provider: 'horde', hordeModel: 'Juggernaut XL',
-    icon: IC.juggernaut, iconTint: '#fda4af',
+    icon: IC.juggernaut, iconTint: '#c9a29a',
     img2img: true, badges: [{ k: 'i2i', t: 'reference' }],
   },
   {
     id: 'icbinp', name: 'ICBINP', sub: 'Stable Diffusion · photography',
     provider: 'horde', hordeModel: "ICBINP - I Can't Believe It's Not Photography",
-    icon: IC.icbinp, iconTint: '#86efac',
+    icon: IC.icbinp, iconTint: '#a8b09a',
     img2img: true, badges: [{ k: 'i2i', t: 'reference' }, { k: 'slow', t: 'slower' }],
   },
   {
     id: 'animagine', name: 'Animagine XL', sub: 'SDXL · anime & illustration',
     provider: 'horde', hordeModel: 'Animagine XL',
-    icon: IC.animagine, iconTint: '#f9a8d4',
+    icon: IC.animagine, iconTint: '#cfa8b8',
+    img2img: true, badges: [{ k: 'i2i', t: 'reference' }],
+  },
+  {
+    id: 'novaanime', name: 'Nova Anime XL', sub: 'SDXL · modern anime',
+    provider: 'horde', hordeModel: 'Nova Anime XL',
+    icon: IC.novaanime, iconTint: '#c4b3d6',
     img2img: true, badges: [{ k: 'i2i', t: 'reference' }],
   },
   {
     id: 'dreamshaper', name: 'Dreamshaper', sub: 'Stable Diffusion · painterly',
     provider: 'horde', hordeModel: 'Dreamshaper',
-    icon: IC.dreamshaper, iconTint: '#fcd34d',
+    icon: IC.dreamshaper, iconTint: '#cbb98e',
     img2img: true, badges: [{ k: 'i2i', t: 'reference' }],
+  },
+  {
+    id: 'deliberate', name: 'Deliberate', sub: 'Stable Diffusion · versatile',
+    provider: 'horde', hordeModel: 'Deliberate',
+    icon: IC.deliberate, iconTint: '#b3b6bd',
+    img2img: true, badges: [{ k: 'i2i', t: 'reference' }],
+  },
+  {
+    id: 'realisticvision', name: 'Realistic Vision', sub: 'Stable Diffusion · photoreal',
+    provider: 'horde', hordeModel: 'Realistic Vision',
+    icon: IC.realisticvision, iconTint: '#a8b5c4',
+    img2img: true, badges: [{ k: 'i2i', t: 'reference' }],
+  },
+  {
+    id: 'sdxl', name: 'SDXL 1.0', sub: 'Stability AI · official base',
+    provider: 'horde', hordeModel: 'SDXL 1.0',
+    icon: IC.sdxl, iconTint: '#c9c3b4',
+    img2img: true, badges: [{ k: 'i2i', t: 'reference' }, { k: 'slow', t: 'slower' }],
   },
   {
     id: 'sd15', name: 'Stable Diffusion 1.5', sub: 'Stability AI · the classic',
     provider: 'horde', hordeModel: 'stable_diffusion',
-    icon: IC.stability, iconTint: '#e9d5ff',
+    icon: IC.stability, iconTint: '#d1c9c0',
     img2img: true, badges: [{ k: 'i2i', t: 'reference' }, { k: 'slow', t: 'slower' }],
   },
 ];
@@ -127,11 +155,28 @@ const state = {
 };
 
 /* ============================================================
+   Hero — letter-by-letter reveal (once, on load)
+   ============================================================ */
+(function splitHero() {
+  const h = $('#heroTitle');
+  if (!h) return;
+  const text = h.textContent;
+  h.textContent = '';
+  let i = 0;
+  for (const ch of text) {
+    if (ch === ' ') { h.appendChild(document.createTextNode(' ')); continue; }
+    const s = el('span', 'ltr', ch);
+    s.style.setProperty('--i', i++);
+    h.appendChild(s);
+  }
+})();
+
+/* ============================================================
    Providers
    ============================================================ */
 const HORDE = 'https://stablehorde.net/api/v2';
 const HORDE_KEY = '0000000000'; // official anonymous key
-const CLIENT_AGENT = 'PrismStudio:1.0:github-pages';
+const CLIENT_AGENT = 'PrismStudio:1.1:github-pages';
 
 async function fetchWithTimeout(url, opts = {}, ms = 120000) {
   const ctrl = new AbortController();
@@ -310,27 +355,37 @@ document.addEventListener('click', (e) => {
   }
 });
 
-/* ---------- model popover ---------- */
+/* ---------- model popover (searchable) ---------- */
 const modelPop = $('#modelPop');
-function buildModelPop() {
-  modelPop.innerHTML = '';
+const modelPopList = $('#modelPopList');
+const modelSearch = $('#modelSearch');
+
+function renderModelList(query = '') {
+  modelPopList.innerHTML = '';
+  const q = query.trim().toLowerCase();
   const groups = [
-    { key: 'pollinations', label: 'Pollinations — instant, keyless' },
-    { key: 'horde', label: 'AI Horde — community cluster, keyless' },
+    { key: 'pollinations', label: 'Instant — Pollinations' },
+    { key: 'horde', label: 'AI Horde — community cluster' },
   ];
   let i = 0;
+  let shown = 0;
   for (const g of groups) {
-    modelPop.appendChild(el('div', 'pop-group-label', g.label));
-    for (const m of MODELS.filter((x) => x.provider === g.key)) {
+    const models = MODELS.filter((x) => x.provider === g.key && (
+      !q || x.name.toLowerCase().includes(q) || x.sub.toLowerCase().includes(q)
+    ));
+    if (!models.length) continue;
+    modelPopList.appendChild(el('div', 'pop-group-label', g.label));
+    for (const m of models) {
+      shown++;
       const item = el('button', `model-item${m.id === state.model.id ? ' selected' : ''}`);
       item.type = 'button';
       item.setAttribute('role', 'option');
       item.setAttribute('aria-selected', m.id === state.model.id);
       item.dataset.testid = `model-item-${m.id}`;
-      item.style.animationDelay = `${Math.min(i++ * 35, 280)}ms`;
+      item.style.animationDelay = `${Math.min(i++ * 30, 240)}ms`;
       const badges = (m.badges || []).map((b) => `<span class="badge ${b.k}">${b.t}</span>`).join('');
       item.innerHTML = `
-        <span class="model-item-icon" style="color:${m.iconTint || '#cbd5e1'}">${m.icon}</span>
+        <span class="model-item-icon" style="color:${m.iconTint || '#b8b5ae'}">${m.icon}</span>
         <span class="model-item-body">
           <span class="model-item-name">${m.name}</span>
           <span class="model-item-sub">${m.sub}</span>
@@ -341,11 +396,34 @@ function buildModelPop() {
         selectModel(m);
         closeAllPops();
       });
-      modelPop.appendChild(item);
+      modelPopList.appendChild(item);
     }
   }
+  if (!shown) {
+    modelPopList.appendChild(el('div', 'model-empty-note', 'No models match that search.'));
+  }
 }
-function selectModel(m) {
+modelSearch.addEventListener('input', () => renderModelList(modelSearch.value));
+modelSearch.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const first = modelPopList.querySelector('.model-item');
+    if (first) first.click();
+  }
+});
+
+function buildModelPop() {
+  modelSearch.value = '';
+  renderModelList('');
+  setTimeout(() => modelSearch.focus(), 60);
+}
+function selectModel(m, opts = {}) {
+  if (state.refImage && !m.img2img) {
+    if (!opts.force) {
+      toast(`${m.name} can\u2019t use reference images — pick an AI Horde model instead`, 'info');
+      return;
+    }
+  }
   state.model = m;
   // clamp steps/cfg to model defaults
   if (m.steps) {
@@ -364,18 +442,7 @@ function selectModel(m) {
   }
   $('#modelPillName').textContent = m.name;
   $('#modelPillIcon').innerHTML = m.icon;
-  $('#modelPillIcon').style.color = m.iconTint || '#cbd5e1';
-  if (state.refImage && !m.img2img) {
-    // reference attached but model can't use it — pick a capable model
-    const alt = MODELS.find((x) => x.img2img && x.id === 'flux');
-    if (m.id === 'sana') {
-      state.model = alt;
-      $('#modelPillName').textContent = alt.name;
-      $('#modelPillIcon').innerHTML = alt.icon;
-      $('#modelPillIcon').style.color = alt.iconTint;
-      toast('Switched to FLUX.1 Schnell — Sana can\u2019t use reference images', 'info');
-    }
-  }
+  $('#modelPillIcon').style.color = m.iconTint || '#b8b5ae';
   updateSendState();
 }
 function setSlider(input, min, max, val, step) {
@@ -387,7 +454,7 @@ function setSlider(input, min, max, val, step) {
 const ratioPop = $('#ratioPop');
 function buildRatioPop() {
   ratioPop.innerHTML = '';
-  RATIOS.forEach((r, i) => {
+  RATIOS.forEach((r) => {
     const [w, h] = r.horde;
     const b = el('button', `ratio-btn${r.id === state.ratio.id ? ' selected' : ''}`);
     b.type = 'button';
@@ -399,7 +466,6 @@ function buildRatioPop() {
       state.ratio = r;
       $('#ratioLabel').textContent = r.id;
       closeAllPops();
-      applyRatioToCards();
     });
     ratioPop.appendChild(b);
   });
@@ -507,8 +573,11 @@ async function setRefImage(file) {
   $('#refName').textContent = file.name;
   refChip.hidden = false;
   $('#rowDenoise').hidden = false;
-  if (!state.model.img2img) selectModel(MODELS.find((m) => m.id === 'flux'));
-  toast('Reference image ready — the model will edit from it', 'ok', 3000);
+  // if current model can't use references, switch to one that can
+  if (!state.model.img2img) {
+    selectModel(MODELS.find((m) => m.id === 'flux'), { force: true });
+    toast('Switched to FLUX.1 Schnell — it can use your reference image', 'info');
+  }
   updateSendState();
 }
 function clearRefImage() {
@@ -532,6 +601,7 @@ composer.addEventListener('drop', (e) => {
   const f = [...(e.dataTransfer.files || [])].find((x) => x.type.startsWith('image/'));
   if (f) setRefImage(f);
 });
+
 document.addEventListener('paste', (e) => {
   if (e.target.closest('.prompt-input') || e.target.closest('.seed-input')) {
     const f = [...(e.clipboardData.files || [])].find((x) => x.type.startsWith('image/'));
@@ -589,10 +659,12 @@ async function generate() {
   btnSend.classList.add('busy');
   btnSend.disabled = true;
 
+  const basePrompt = promptEl.value.trim();
   const jobs = [];
   for (let i = 0; i < state.batch; i++) {
     jobs.push({
       model: state.model,
+      basePrompt,
       finalPrompt: finalPrompt(),
       dims: state.model.provider === 'pollinations' ? state.ratio.poll : state.ratio.horde,
       steps: state.steps,
@@ -620,7 +692,6 @@ async function generate() {
             card.statusEl.innerHTML = `${bits.join(' · ')}<br><span class="load-time">${s.elapsed}s</span>`;
           });
       card.done(url);
-      if (state.refImage && !state.model.img2img) { /* unreachable */ }
     } catch (err) {
       console.error(err);
       card.fail(err.message || 'Something went wrong');
@@ -644,13 +715,13 @@ function makeCard(job) {
   node.dataset.testid = `card-${job.seed}`;
 
   const media = el('div', 'card-media');
-  const loading = el('div', 'card-loading', '<div class="load-orbit"></div>');
+  const loading = el('div', 'card-loading', '<div class="honeycomb" aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>');
   const statusEl = el('div', 'load-status', 'connecting…');
   loading.appendChild(statusEl);
   media.appendChild(loading);
 
   const tag = el('span', 'card-tag', `${job.model.icon}${job.model.name}`);
-  tag.style.color = job.model.iconTint || '#cbd5e1';
+  tag.style.color = job.model.iconTint || '#b8b5ae';
 
   const actions = el('div', 'card-actions');
   const grp = el('div', 'card-action-group');
@@ -709,8 +780,6 @@ function removeCard(card) {
   if (!state.cards.length) { emptyState.hidden = false; $('#galleryHead').hidden = true; }
 }
 
-function applyRatioToCards() { /* future: live aspect preview on placeholder */ }
-
 async function download(job, card) {
   if (!card.url) return;
   if (card.url.startsWith('blob:')) {
@@ -736,16 +805,18 @@ async function download(job, card) {
 }
 
 function reroll(job) {
-  // same prompt & settings, fresh seed — reuse current settings only for prompt
-  const prevPrompt = promptEl.value;
-  promptEl.value = job.finalPrompt.replace(new RegExp(state.style.suffix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '$'), '').trim() || job.finalPrompt;
+  // restore the card's original prompt, then generate with a fresh seed
+  const current = promptEl.value.trim();
+  promptEl.value = job.basePrompt || job.finalPrompt;
+  promptEl.dispatchEvent(new Event('input'));
   const keep = state.seed;
   state.seed = null;
-  generate().finally(() => {
+  const finish = () => {
     state.seed = keep;
-    if (!prevPrompt) promptEl.value = '';
+    if (!current) { promptEl.value = ''; promptEl.dispatchEvent(new Event('input')); }
     updateSendState();
-  });
+  };
+  generate().finally(finish);
 }
 
 /* clear all */
@@ -808,7 +879,7 @@ IDEAS.slice(0, 5).forEach((idea, i) => {
 /* ============================================================
    Init
    ============================================================ */
-selectModel(MODELS.find((m) => m.id === 'flux'));
+selectModel(MODELS.find((m) => m.id === 'flux'), { force: true });
 updateSendState();
 
 })();

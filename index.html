@@ -1,49 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Prism — AI Image Studio</title>
 <meta name="description" content="Prism is a free, keyless AI image generation studio. Text-to-image and image-to-image with FLUX, SDXL and more — no signups, no API keys." />
 <meta property="og:title" content="Prism — AI Image Studio" />
-<meta property="og:description" content="Free, keyless AI image generation. Text-to-image and reference-image editing in a glassmorphic studio." />
+<meta property="og:description" content="Free, keyless AI image generation. Text-to-image and reference-image editing in a quiet, professional studio." />
 <meta property="og:type" content="website" />
+<meta name="theme-color" content="#0b0c0e" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://api.fontshare.com" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet" />
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-<!-- Ambient animated background -->
-<div class="aurora" aria-hidden="true">
-  <div class="aurora-blob aurora-blob-a"></div>
-  <div class="aurora-blob aurora-blob-b"></div>
-  <div class="aurora-blob aurora-blob-c"></div>
-  <div class="aurora-grain"></div>
-  <div class="aurora-vignette"></div>
+<!-- Ambient background: quiet dotted grid over near-black -->
+<div class="backdrop" aria-hidden="true">
+  <div class="backdrop-grid"></div>
+  <div class="backdrop-glow"></div>
+  <div class="backdrop-vignette"></div>
 </div>
 
 <header class="site-header">
-  <div class="brand">
-    <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
-      <defs>
-        <linearGradient id="bm" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#a78bfa"/><stop offset="55%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#f0abfc"/>
-        </linearGradient>
-      </defs>
-      <path d="M16 2 L29 27 H3 Z" fill="none" stroke="url(#bm)" stroke-width="2.4" stroke-linejoin="round"/>
-      <path d="M16 10 L23 24 H9 Z" fill="none" stroke="url(#bm)" stroke-width="1.6" stroke-linejoin="round" opacity="0.65"/>
-      <circle cx="16" cy="20.5" r="2.1" fill="url(#bm)"/>
-    </svg>
-    <span class="brand-name">Prism</span>
-  </div>
   <div class="header-right">
-    <span class="free-pill" title="All models run on free, keyless community services">
-      <span class="pulse-dot"></span>free · no keys · unlimited
+    <span class="status-text" title="All models run on free, keyless community services">
+      <span class="status-dot"></span>12 models · no keys · unlimited
     </span>
     <a class="gh-link" href="https://github.com/ardy03851-bit/prism-studio" target="_blank" rel="noopener" aria-label="View source on GitHub">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.16-1.18 3.16-1.18.63 1.58.23 2.75.12 3.04.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.66.41.35.77 1.05.77 2.12 0 1.54-.01 2.77-.01 3.15 0 .3.2.67.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
@@ -55,8 +41,8 @@
 
   <!-- Hero -->
   <section class="hero" id="hero">
-    <h1 class="hero-title"><span class="grad-text">Imagine</span> anything.</h1>
-    <p class="hero-sub">A quiet glass studio for AI image making — text-to-image and reference-guided editing, powered by free, keyless community models.</p>
+    <h1 class="hero-title" id="heroTitle">Imagine anything.</h1>
+    <p class="hero-sub">A quiet studio for AI image making — text-to-image and reference-guided editing on free, keyless community models.</p>
   </section>
 
   <!-- Composer -->
@@ -82,26 +68,26 @@
       <div class="toolbar">
         <div class="tools-left">
           <button class="tool-btn" id="btnRef" data-tooltip="Reference image" aria-label="Add reference image" data-testid="button-ref">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="14" height="14" rx="2.5"/><path d="M3 15.5 7.5 11l4 4 3-3 2.5 2.5"/><path d="M18.5 9.5v-4M16.5 7.5h4"/><circle cx="8" cy="9" r="1.4"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 15.5 7.5 11l4 4 3-3 6.5 6.5"/><path d="M18.5 9.5v-4M16.5 7.5h4"/><circle cx="8" cy="9" r="1.4"/></svg>
           </button>
           <input type="file" id="refFile" accept="image/*" hidden />
 
           <button class="tool-btn" id="btnSettings" data-tooltip="Settings" aria-label="Generation settings" aria-expanded="false" data-testid="button-settings">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2.2"/><circle cx="10" cy="17" r="2.2"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2.2"/><circle cx="10" cy="17" r="2.2"/></svg>
           </button>
 
           <button class="tool-btn tool-btn-text" id="btnRatio" data-tooltip="Aspect ratio" aria-expanded="false" data-testid="button-ratio">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M9 6v-2h6v2" opacity="0"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="6" width="16" height="12" rx="2"/></svg>
             <span id="ratioLabel">1:1</span>
           </button>
 
-          <button class="tool-btn" id="btnStyle" data-tooltip="Style preset" aria-expanded="false" data-testid="button-style">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.6 0 2.3-1 1.6-2.3-.9-1.7.3-3.7 2.3-3.7H18a3 3 0 0 0 3-3c0-5-4-9-9-9z"/><circle cx="7.8" cy="10.5" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="7.6" r="1" fill="currentColor" stroke="none"/><circle cx="16.2" cy="10.5" r="1" fill="currentColor" stroke="none"/></svg>
+          <button class="tool-btn tool-btn-text" id="btnStyle" data-tooltip="Style preset" aria-expanded="false" data-testid="button-style">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.6 0 2.3-1 1.6-2.3-.9-1.7.3-3.7 2.3-3.7H18a3 3 0 0 0 3-3c0-5-4-9-9-9z"/><circle cx="7.8" cy="10.5" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="7.6" r="1" fill="currentColor" stroke="none"/><circle cx="16.2" cy="10.5" r="1" fill="currentColor" stroke="none"/></svg>
             <span class="style-label" id="styleLabel">Style</span>
           </button>
 
           <button class="tool-btn tool-btn-text" id="btnBatch" data-tooltip="Images per generation" aria-expanded="false" data-testid="button-batch">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 4H6a2 2 0 0 0-2 2v10"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 4H6a2 2 0 0 0-2 2v10"/></svg>
             <span id="batchLabel">1</span>
           </button>
 
@@ -114,11 +100,13 @@
 
         <div class="tools-right">
           <button class="tool-btn" id="btnSurprise" data-tooltip="Surprise me" aria-label="Random prompt idea" data-testid="button-surprise">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg>
           </button>
           <button class="send-btn" id="btnSend" aria-label="Generate image" data-testid="button-send" disabled>
             <span class="send-ring" aria-hidden="true"></span>
-            <svg class="send-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            <span class="send-face">
+              <svg class="send-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            </span>
           </button>
         </div>
       </div>
@@ -142,7 +130,7 @@
           <div class="seed-line">
             <input type="text" id="setSeed" class="seed-input" placeholder="random" inputmode="numeric" />
             <button class="mini-btn" id="btnSeedDice" data-tooltip="Randomize seed" aria-label="Randomize seed">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3.5"/><circle cx="9" cy="9" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1.2" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.2" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3.5"/><circle cx="9" cy="9" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1.2" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.2" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg>
             </button>
           </div>
         </div>
@@ -158,7 +146,16 @@
       <div class="popover popover-batch" id="batchPop" hidden role="listbox" aria-label="Batch size"></div>
 
       <!-- Model popover -->
-      <div class="popover popover-model" id="modelPop" hidden role="listbox" aria-label="Choose model"></div>
+      <div class="popover popover-model" id="modelPop" hidden role="listbox" aria-label="Choose model">
+        <div class="model-pop-head">
+          <span class="model-pop-title">Models</span>
+          <label class="model-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+            <input type="text" id="modelSearch" placeholder="Search models…" autocomplete="off" spellcheck="false" />
+          </label>
+        </div>
+        <div class="model-pop-list" id="modelPopList"></div>
+      </div>
 
     </div>
     <p class="composer-note" id="composerNote">Enter to generate · Shift+Enter for a new line · drop or paste an image to use it as reference</p>
@@ -173,13 +170,11 @@
     <div class="gallery" id="gallery"></div>
 
     <div class="empty-state" id="emptyState">
-      <div class="empty-orb" aria-hidden="true">
-        <div class="empty-orb-core"></div>
-        <div class="empty-orb-ring"></div>
-        <div class="empty-orb-ring r2"></div>
+      <div class="empty-frame" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 15.5 7.5 11l4 4 3-3 6.5 6.5"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
       </div>
-      <p class="empty-line-1">Nothing here yet.</p>
-      <p class="empty-line-2">Describe something impossible, then press the arrow.</p>
+      <p class="empty-line-1">No images yet</p>
+      <p class="empty-line-2">Describe something and press the arrow.</p>
       <div class="seed-chips" id="seedChips"></div>
     </div>
   </section>
@@ -201,16 +196,16 @@
       </div>
       <div class="lb-actions">
         <button class="lb-btn" id="lbDownload" data-tooltip="Download">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
         </button>
         <button class="lb-btn" id="lbCopy" data-tooltip="Copy prompt">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
         </button>
         <button class="lb-btn" id="lbReroll" data-tooltip="Generate again">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v5h-5"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v5h-5"/></svg>
         </button>
         <button class="lb-btn lb-close" id="lbClose" data-tooltip="Close" aria-label="Close viewer">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
         </button>
       </div>
     </figcaption>
